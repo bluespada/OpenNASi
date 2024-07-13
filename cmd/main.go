@@ -7,14 +7,10 @@
 package main
 
 import (
-    "github.com/bluespada/OpenNASi/pkg/server"
 )
 
 
 // main function to run OpenNASi
 func main(){
-    var NasiServer = server.New()
-
-    NasiServer.RunServer()
-
+    // initialize OpenNASi Server
 }

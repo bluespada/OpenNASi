@@ -8,41 +8,44 @@ package server
 
 import (
     "fmt"
+
     "github.com/valyala/fasthttp"
     "github.com/fasthttp/router"
 )
 
-
-// create server structure
-type OpenNASiServer struct {
-
+// server structure
+type Server struct {
 }
 
-
-// initialize OpenNASiServer
-func New() *OpenNASiServer {
-    fmt.Println("Start OpenNASi Server")
-    return &OpenNASiServer{
+// initialize server
+func New() *Server {
+    return &Server{
     }
 }
 
-func (server *OpenNASiServer) RunServer(){
-    // initialize router
+// start and run http server
+func(s *Server) ListenAndRun(port int){
+    
+    // initialize fasthttp and the route
+    fasthttp.ListenAndServe(fmt.Sprintf(":%d", port), s.initRoute().Handler)
+}
+
+
+// this function is to handle OpenNASi Web Server Route
+// including to serve global middleware and the assets.
+func (s *Server) initRoute() *router.Router {
     r := router.New()
+    // initialize route
 
-    server.webRouter(r)
-    server.apiRouter(r)
+    // handle global middleware
 
-    // initialize router handler
-    fasthttp.ListenAndServe(":8000", r.Handler)
+    // handle assets route
+
+    // handle website route
+
+    // handle api route
+
+    // return router
+    return r
 }
 
-func (server *OpenNASiServer) baseHandler(ctx *fasthttp.RequestCtx) {
-    fmt.Fprintf(ctx, "Hello World")
-}
-
-
-// initialize required dependency or other
-func init(){
-
-}
